@@ -16,9 +16,44 @@ Graph Labyrinth::transformIntoGraphFromFile(std::string fileName){
     return transformIntoGraphFromText(retrieveStringFromFile(fileName));
 }
 
+Position Labyrinth::retrieveStartPosition(std::string fileName){
+    std::string file = retrieveStringFromFile(fileName);
+    for(int column = 0; column < file.length(); column++){
+        if(file[column] == clearWay){
+            return Position(column, 1);
+        }
+    }
+}
+
+Position Labyrinth::retrieveEndPosition(std::string fileName){
+    std::string file = retrieveStringFromFile(fileName);
+
+    std::vector<std::string> lines;
+    std::string line;
+    for(int i = 0; i < file.length(); i++){
+        if(file[i] == '\n'){
+            lines.push_back(line);
+            line = "";
+        }
+        else{
+            line = line + file[i];
+        }
+    }
+
+    int length = lines[1].length();
+    int height = lines.size();
+
+    for(int i = 0; i < height; i++){
+        char lastLetter = lines[i][length-1];
+        if(lastLetter == clearWay){
+            return Position(length, i);
+        }
+    }
+}
+
 std::string Labyrinth::retrieveStringFromFile(std::string fileName){
     std::string labyrinthText;
-    std::ifstream labyrinthFile(fileName);
+    std::ifstream labyrinthFile(fileName + ".txt");
 
     if (labyrinthFile.is_open()){
         std::string line;

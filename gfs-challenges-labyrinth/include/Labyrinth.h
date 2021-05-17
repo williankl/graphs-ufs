@@ -25,6 +25,10 @@ class Labyrinth
         Graph transformIntoGraphFromText(std::string text);
 
         std::string retrieveResolvedLabyrinthString(std::string fileName, std::vector<Value> resolvedPath);
+
+        Position retrieveStartPosition(std::string fileName);
+
+        Position retrieveEndPosition(std::string fileName);
 };
 
 #endif
